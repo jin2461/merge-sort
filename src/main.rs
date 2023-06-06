@@ -24,9 +24,29 @@ fn merge(first: Vec<i32>, second: Vec<i32>) -> Vec<i32> {
     }
     return final_vec;
 }
+fn split(array: Vec<i32>) -> Vec<Vec<i32>> {
+    let mut vector_of_array: Vec<Vec<i32>> = vec![];
+    for i in 0..array.len() {
+        vector_of_array.push(vec![array[i]]);
+    }
+    return vector_of_array;
+}
+fn sort(mut array: Vec<Vec<i32>>) -> Vec<i32> {
+    let mut pointer: usize = 0;
+    while pointer <= array.len() - 2 {
+        array[pointer] = merge(array[pointer], array[pointer + 1]);
+        array.remove(pointer + 1);
+        pointer += 2;
+    }
+
+    if array.len() == 1 {
+        return array[0];
+    }
+    sort(array)
+}
 fn main() {
-    let first: Vec<i32> = vec![3, 4, 5, 8, 10, 15];
-    let second: Vec<i32> = vec![1, 2, 6, 7, 8, 9];
-    let final_vec = merge(first, second);
+    let array: Vec<i32> = vec![8, 7, 3, 6, 1, 2, 4, 5, 1, 8, 10, 15];
+    let sorted_vec = split(array);
+    let final_vec = sort(sorted_vec);
     println!("{:?}", final_vec);
 }
