@@ -1,3 +1,4 @@
+use std::io;
 fn merge(first: Vec<i32>, second: Vec<i32>) -> Vec<i32> {
     let mut final_vec: Vec<i32> = vec![];
     let mut first_pointer: usize = 0;
@@ -48,11 +49,15 @@ fn sort(mut array: Vec<Vec<i32>>) -> Vec<i32> {
     sort(array)
 }
 fn main() {
-    let array: Vec<i32> = vec![
-        3, 5, 2, 1, 6, 4, 8, 9, 9, 10, 2, 10, 3, 2, 5, 1, 6, 4, 8, 8, 7, 3, 6, 1, 2, 4, 5, 1, 8,
-        10, 15,
-    ];
-    let sorted_vec = split(array);
+    let mut input = String::new();
+    io::stdin()
+        .read_line(&mut input)
+        .expect("Failed to read input");
+    let numbers: Vec<_> = input
+        .split_whitespace()
+        .map(|x| x.parse::<i32>().expect("Invalid number"))
+        .collect();
+    let sorted_vec = split(numbers);
     let final_vec = sort(sorted_vec);
     println!("{:?}", final_vec);
 }
