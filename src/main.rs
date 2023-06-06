@@ -32,8 +32,12 @@ fn split(array: Vec<i32>) -> Vec<Vec<i32>> {
     return vector_of_array;
 }
 fn sort(mut array: Vec<Vec<i32>>) -> Vec<i32> {
+    if array.len() == 1 {
+        let sorted_array: Vec<i32> = array[0].clone();
+        return sorted_array;
+    }
     let mut pointer: usize = 0;
-    while pointer <= array.len() - 2 {
+    while pointer < array.len() - 1 {
         let first: Vec<i32> = array[pointer].clone();
         let second: Vec<i32> = array[pointer + 1].clone();
         array[pointer] = merge(first, second);
@@ -41,14 +45,13 @@ fn sort(mut array: Vec<Vec<i32>>) -> Vec<i32> {
         pointer += 2;
     }
 
-    if array.len() == 1 {
-        let sorted_array: Vec<i32> = array[0].clone();
-        return sorted_array;
-    }
     sort(array)
 }
 fn main() {
-    let array: Vec<i32> = vec![8, 7, 3, 6, 1, 2, 4, 5, 1, 8, 10, 15];
+    let array: Vec<i32> = vec![
+        3, 5, 2, 1, 6, 4, 8, 9, 9, 10, 2, 10, 3, 2, 5, 1, 6, 4, 8, 8, 7, 3, 6, 1, 2, 4, 5, 1, 8,
+        10, 15,
+    ];
     let sorted_vec = split(array);
     let final_vec = sort(sorted_vec);
     println!("{:?}", final_vec);
