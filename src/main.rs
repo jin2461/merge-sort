@@ -34,13 +34,16 @@ fn split(array: Vec<i32>) -> Vec<Vec<i32>> {
 fn sort(mut array: Vec<Vec<i32>>) -> Vec<i32> {
     let mut pointer: usize = 0;
     while pointer <= array.len() - 2 {
-        array[pointer] = merge(array[pointer], array[pointer + 1]);
+        let first: Vec<i32> = array[pointer].clone();
+        let second: Vec<i32> = array[pointer + 1].clone();
+        array[pointer] = merge(first, second);
         array.remove(pointer + 1);
         pointer += 2;
     }
 
     if array.len() == 1 {
-        return array[0];
+        let sorted_array: Vec<i32> = array[0].clone();
+        return sorted_array;
     }
     sort(array)
 }
